@@ -9,14 +9,14 @@ namespace Project2
 	{
 		static int [,]ArrayA = new int[,] {{1,1},{2,2},{3,3},{4,4}};
 		static int [,]ArrayB = new int[,] {{5,4,3,2},{6,7,8,9}};
-		static int [,]ArrayC;
+		static int [,]ArrayC = new int[,] {{0,0},{0,0}};
 
 		public static void Main (string[] args)
 		{
 
 			while (true)
 			{
-                var tasks = new List<Task<int>>();
+                var tasks = new List<Task>();
 
                 for (int i = 0; i < ArrayA.GetLength(0); i++)
                 {
@@ -30,20 +30,22 @@ namespace Project2
                 Task.WaitAll(tasks.ToArray());
 
                 //see results of the task
-                for (int i = 0; i < tasks.Count; i++)
+                for (int i = 0; i < ArrayC.GetLength(0); i++)
                 {
-                    Console.WriteLine(i + " " + tasks[i].Result);
+                    for (int j = 0; j < ArrayC.GetLength(1); j++)
+                    {
+                        Console.WriteLine(i + " " + j + " " + ArrayC[i,j]);
+                    }
                 }
 			}
 		}
 
-        private static int CalculateColumn(int i, int j)
+        private static void CalculateColumn(int i, int j)
         {
-            return 0;
-            //for (int k = 0; k < ArrayB.GetLength; k++)
-            //{
-            //    ArrayC[i, j] += ArrayA[i, k] * ArrayB[k, j];
-            //}
+            for (int k = 0; k < ArrayB.GetLength(1); k++)
+            {
+                ArrayC[i, j] += ArrayA[i, k] * ArrayB[k, j];
+            }
         }
 	}
 }
